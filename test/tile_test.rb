@@ -36,4 +36,14 @@ class TileTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_when_ship_is_placed_state_changes_to_occupied
+    tile = Tile.new
+
+    expected = "O"
+    tile.occupied
+    actual = tile.state
+
+    assert_equal expected, actual
+  end
+
 end

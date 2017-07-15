@@ -13,5 +13,7 @@ class Tile
     @state = "M"
   end
 
-
+  def occupied
+    @state = "O"
+  end
 end

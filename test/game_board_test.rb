@@ -36,7 +36,7 @@ class GameBoardTest < Minitest::Test
   def test_put_hash_lines_in_array
     game = GameBoard.new
 
-    expected = [game.game_board[:A1], game.game_board[:A2], game.game_board[:A3], game.game_board[:A4]]
+    expected = [game.game_board[:A1].state, game.game_board[:A2].state, game.game_board[:A3].state, game.game_board[:A4].state]
     actual = game.game_array[0]
 
     assert_equal expected, actual
@@ -45,11 +45,19 @@ class GameBoardTest < Minitest::Test
   def test_different_array_line
     game = GameBoard.new
 
-    expected = [game.game_board[:B1], game.game_board[:B2], game.game_board[:B3], game.game_board[:B4]]
+    expected = [game.game_board[:B1].state, game.game_board[:B2].state, game.game_board[:B3].state, game.game_board[:B4].state]
     actual = game.game_array[1]
 
     assert_equal expected, actual
   end
+
+  def test_print_game_board_to_screen
+    game = GameBoard.new
+    game.game_array
+    # game.print_game_board
+  end
+
+  
 
 
 end
