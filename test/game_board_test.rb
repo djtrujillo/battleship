@@ -9,4 +9,5 @@ class GameBoardTest < Minitest::Test
     assert_instance_of GameBoard, game_board
   end
 
+
 end
