@@ -5,5 +5,6 @@ class PatrolBoat
     @coordinatey = y.to_sym
   end
 
+  def random_ship_
 
 end

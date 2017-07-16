@@ -21,11 +21,10 @@ class Battleship
   end
 
   def game_sequence
-
   end
 
   def instructions
-  end 
+  end
 
 
 
