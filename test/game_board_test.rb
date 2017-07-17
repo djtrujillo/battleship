@@ -57,17 +57,17 @@ class GameBoardTest < Minitest::Test
     # game.print_game_board
   end
 
-  def test_computer_selects_random_tile
+  def test_computer_selects_random_key
     game = GameBoard.new
 
-    actual = game.comp_random_tile
+    actual = game.comp_random_key
 
-    assert actual.is_a? Hash
+    assert_equal Symbol, actual.class
   end
 
   def test_randomly_select_horizontal_or_vertical
     game = GameBoard.new
-    tile = game.comp_random_tile
+    tile = game.comp_random_key
 
     vert_or_horiz = game.rand_vert_or_horiz
 
@@ -147,11 +147,11 @@ class GameBoardTest < Minitest::Test
     refute game.test_occupied(:A2)
   end
 
-  def test_place_computer_patrol_boat
-    game = GameBoard.new
-    game.place_patrol_boat
-
-  end
+  # def test_place_computer_patrol_boat
+  #   game = GameBoard.new
+  #   game.place_patrol_boat
+  #
+  # end
 
 
 

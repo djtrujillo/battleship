@@ -35,10 +35,10 @@ class GameBoard
     line0 =  ""
     line1 =  "==========="
     line2 =  ". 1 2 3 4"
-    line3 =  "A#{@computer_game_array[0].each {|tile| print tile}.join('')}"
-    line4 =  "B#{@computer_game_array[1].each {|tile| print tile}.join('')}"
-    line5 =  "C#{@computer_game_array[2].each {|tile| print tile}.join('')}"
-    line6 =  "D#{@computer_game_array[3].each {|tile| print tile}.join('')}"
+    line3 =  "A#{@computer_game_array[0].each {|tile| print " #{tile}"}.join('')}"
+    line4 =  "B#{@computer_game_array[1].each {|tile| print " #{tile}"}.join('')}"
+    line5 =  "C#{@computer_game_array[2].each {|tile| print " #{tile}"}.join('')}"
+    line6 =  "D#{@computer_game_array[3].each {|tile| print " #{tile}"}.join('')}"
     line7 =  "==========="
     line8 =  ""
     line9 =  "==========="
@@ -51,23 +51,28 @@ class GameBoard
     puts line0, line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11, line12, line13, line14, line15
   end
 
-  def comp_random_tile
-    tile = Hash[@computer_game_board.to_a.sample(1)]
-
+  def comp_random_key
+    array = @computer_game_board.to_a.sample(1)
+    array[0][0]
   end
 
   def orientation(key)
-    while test_inbounds(key) == true && test_occupied == false
+
+    # while test_inbounds(key) == true && test_occupied(key) == false
       orientation = rand_vert_or_horiz
+
       if orientation == "vert"
-        direction == rand_up_or_down
-        key = assign_next_tile(key, orientation, direction)
+        direction = rand_up_or_down
+
+        new_key = next_tile(key, orientation, direction)
+
       else
-        direction == rand_left_or_right
-        key = assign_next_tile(key, orientation, direction)
+        direction = rand_left_or_right
+        new_key = next_tile(key, orientation, direction)
+
       end
-    end
-    key
+
+    new_key
   end
 
   def next_tile(key, orientation, direction)
@@ -85,6 +90,7 @@ class GameBoard
       elsif direction == "left"
         key_integer = key_string[1].to_i
         key_string[1] = (key_integer -= 1).to_s
+
       end
     end
     key = key_string.to_sym
@@ -107,23 +113,22 @@ class GameBoard
   end
 
   def place_patrol_boat
-    key1 = comp_random_tile.key
+
+    key1 = comp_random_key
+
     key2 = orientation(key1)
+
 
     @computer_game_board[key1].occupied
     @computer_game_board[key2].occupied
+    game_arrays
+
+
   end
 
-
-
-
-
-
-
-
   def rand_vert_or_horiz
-    rand = rand(1)
-    if rand == 0
+    random = rand(1)
+    if random == 0
       "vert"
     else
       "horiz"
@@ -131,8 +136,8 @@ class GameBoard
   end
 
   def rand_up_or_down
-    rand = rand(1)
-    if rand == 0
+    random = rand(1)
+    if random == 0
       "up"
     else
       "down"
@@ -140,8 +145,8 @@ class GameBoard
   end
 
   def rand_left_or_right
-    rand = rand(1)
-    if rand == 0
+    random = rand(1)
+    if random == 0
       "right"
     else
       "left"
@@ -149,5 +154,6 @@ class GameBoard
   end
 
 end
- # game= GameBoard.new
- # game.print_game_boards
+ game= GameBoard.new
+ game.place_patrol_boat
+ game.print_game_boards
