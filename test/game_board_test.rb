@@ -67,18 +67,99 @@ class GameBoardTest < Minitest::Test
 
   def test_randomly_select_horizontal_or_vertical
     game = GameBoard.new
-    random = game.comp_random_tile
+    tile = game.comp_random_tile
 
-    vertical = game.vertical?(random)
+    vert_or_horiz = game.rand_vert_or_horiz
 
-    assert vertical.is_a? Boolean
+    assert vert_or_horiz == "vert" || "horiz"
   end
 
 
-  # def test_comp_places_patrol_boat
-  #   game= GameBoard.new
-  #   first_coord = game.computer_game_board[:A1]
-  #   second_coord = game.random_by_proi
+  #######need tests for "random" methods########
+
+
+  def test_assign_next_tile_vert_down
+    game = GameBoard.new
+    key = :B2
+    orientation = "vert"
+    direction = "down"
+
+    expected = :C2
+    actual = game.next_tile(key, orientation, direction)
+
+    assert_equal expected, actual
+  end
+
+  def test_assign_next_tile_vert_up
+    game = GameBoard.new
+    key = :B2
+    orientation = "vert"
+    direction = "up"
+
+    expected = :A2
+    actual = game.next_tile(key, orientation, direction)
+
+    assert_equal expected, actual
+  end
+
+  def test_assign_next_tile_horiz_right
+    game = GameBoard.new
+    key = :B2
+    orientation = "horiz"
+    direction = "right"
+
+    expected = :B3
+    actual = game.next_tile(key, orientation, direction)
+
+    assert_equal expected, actual
+  end
+
+  def test_assign_next_tile_horiz_left
+    game = GameBoard.new
+    key = :B2
+    orientation = "horiz"
+    direction = "left"
+
+    expected = :B1
+    actual = game.next_tile(key, orientation, direction)
+
+    assert_equal expected, actual
+  end
+
+  def test_tile_is_in_bounds
+    game = GameBoard.new
+    key = :F1
+
+    expected = false
+    actual = game.test_inbounds(key)
+
+    assert_equal expected, actual
+  end
+
+  def test_tile_is_occupied
+    game = GameBoard.new
+    game.computer_game_board[:A1].occupied
+
+    expected = true
+    actual = game.test_occupied(:A1)
+
+    assert_equal expected, actual
+    refute game.test_occupied(:A2)
+  end
+
+  def test_place_computer_patrol_boat
+    game = GameBoard.new
+    game.place_patrol_boat
+
+  end
+
+
+
+
+
+
+
+
 
 
 
