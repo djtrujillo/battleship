@@ -16,7 +16,6 @@ class GameBoard
                           :B1 => Tile.new, :B2 => Tile.new, :B3 => Tile.new, :B4 => Tile.new,
                           :C1 => Tile.new, :C2 => Tile.new, :C3 => Tile.new, :C4 => Tile.new,
                           :D1 => Tile.new, :D2 => Tile.new, :D3 => Tile.new, :D4 => Tile.new}
-
   end
 
   def print_game_boards
@@ -51,6 +50,10 @@ class GameBoard
 
   def comp_random_key
     @computer_game_board.to_a.sample(1)[0][0]
+  end
+
+  def player_random_key
+    @player_game_board.to_a.sample(1)[0][0]
   end
 
   def orientation(key)
@@ -270,7 +273,8 @@ class GameBoard
 
 
   def player_shoot(key)
-
+    key = key.to_sym
+    # binding.pry
       if @computer_game_board[key].state == "O"
         @computer_game_board[key].hit
       elsif @computer_game_board[key].state == "M" || @computer_game_board[key].state == "H"
@@ -281,7 +285,7 @@ class GameBoard
       @computer_game_board[key].state
   end
 
-  def computer_shoot(key)
+  def computer_shoot(key = player_random_key)
     if @player_game_board[key].state == "O"
       @player_game_board[key].hit
     elsif @player_game_board[key].state == "M" || @player_game_board[key].state == "H"
@@ -289,16 +293,32 @@ class GameBoard
     else
       @player_game_board[key].miss
     end
+    key
   end
 
   def test_player_hit_or_miss(key)
+    key = key.to_sym
     if @computer_game_board[key].state == "M"
       "Miss"
     else @computer_game_board[key].state == "H"
       "Direct Hit!"
     end
   end
-      
+
+  def test_computer_hit_or_miss(key)
+    if @player_game_board[key].state == "M"
+      "Miss"
+    else @player_game_board[key].state == "H"
+      "Direct Hit!"
+    end
+  end
+
+
+  # def fire_random_shot
+  #   @pla
+  #
+  # end
+
 
 
 
