@@ -4,7 +4,11 @@ class GameBoard
   attr_reader :player_game_board,
               :computer_game_board,
               :player_game_array,
-              :computer_game_array
+              :computer_game_array,
+              :player_patrol_boat,
+              :player_destroyer,
+              :computer_patrol_boat,
+              :computer_destroyer
 
   def initialize
     @computer_game_board = {:A1 => Tile.new, :A2 => Tile.new, :A3 => Tile.new, :A4 => Tile.new,
@@ -175,6 +179,8 @@ class GameBoard
     @computer_game_board[key2].occupied
     @computer_game_board[key3].occupied
 
+    @computer_destroyer = [@computer_game_board[key1], @computer_game_board[key2], @computer_game_board[key3]]
+
     key3
   end
 
@@ -209,6 +215,8 @@ class GameBoard
     @computer_game_board[key1].occupied
     @computer_game_board[key2].occupied
 
+    @computer_patrol_boat = [@computer_game_board[key1], @computer_game_board[key2]]
+
     key2
   end
 
@@ -222,6 +230,8 @@ class GameBoard
 
     @player_game_board[key1].occupied
     @player_game_board[key2].occupied
+
+    @player_patrol_boat = [@player_game_board[key1], @player_game_board[key2]]
   end
 
   def place_player_destroyer(coord1, coord2)
@@ -236,6 +246,8 @@ class GameBoard
     @player_game_board[key1].occupied
     @player_game_board[key2].occupied
     @player_game_board[key3].occupied
+
+    @player_destroyer = [@player_game_board[key1], @player_game_board[key2], @player_game_board[key3]]
   end
 
 
@@ -301,7 +313,22 @@ class GameBoard
     if @computer_game_board[key].state == "M"
       "Miss"
     else @computer_game_board[key].state == "H"
-      "Direct Hit!"
+      if @computer_destroyer.include? @computer_game_board[key]
+        "Direct Hit on Destroyer!"
+        @computer_destroyer.delete( @computer_game_board[key])#remove from array
+      else
+        "Direct Hit on Patrol Boat!"
+        @computer_patrol_boat.delete(@computer_game_board[key])# remove from array
+      end
+      
+      if @computer_destroyer.count == 0 && @computer_patrol_boat.count == 0
+        "You Win!! You sank the computers Ships"
+      elsif @computer_destroyer.count == 0
+        "You Sank the Destroyer!"
+      elsif @computer_patrol_boat.count == 0
+        "You Sank the Patrol Boat!"
+      else
+      end
     end
   end
 
@@ -309,7 +336,22 @@ class GameBoard
     if @player_game_board[key].state == "M"
       "Miss"
     else @player_game_board[key].state == "H"
-      "Direct Hit!"
+      if @player_destroyer.include? @player_game_board[key]
+        "Computer Hit Your Destroyer!"
+        @player_destroyer.delete(@player_game_board[key])
+      else
+        "Computer Hit Your Patrol Boat!"
+        @player_patrol_boat.delete(@player_game_board[key])
+      end
+
+      if @player_patrol_boat.count == 0 && @player_destroyer.count == 0
+        "Game Over, Computer Sank your Ships"
+      elsif @player_destroyer.count == 0
+        "Computer Sank Your Destroyer!"
+      elsif @player_patrol_boat.count == 0
+        "Computer Sank Your Patrol Boat!"
+      else
+      end
     end
   end
 
@@ -324,7 +366,7 @@ class GameBoard
 
 
 end
- game= GameBoard.new
- game.place_comp_patrol_boat
- game.place_comp_destroyer
- game.print_game_boards
+ # game= GameBoard.new
+ # game.place_comp_patrol_boat
+ # game.place_comp_destroyer
+ # game.print_game_boards

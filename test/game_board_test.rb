@@ -224,4 +224,28 @@ class GameBoardTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_player_patrol_boat
+    game = GameBoard.new
+    game.place_player_patrol_boat("A2", "A3")
+
+    expected = [game.player_game_board[:A2], game.player_game_board[:A3]]
+    actual = game.player_patrol_boat
+
+    assert_equal expected, actual
+  end
+
+  def test_player_destroyer
+    game = GameBoard.new
+    game.place_player_destroyer("A2", "A4")
+
+    expected = [game.player_game_board[:A2], game.player_game_board[:A3], game.player_game_board[:A4]]
+    actual = game.player_destroyer
+
+    assert_equal expected, actual
+  end
+
+  
+
+
+
 end
