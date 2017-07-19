@@ -204,4 +204,24 @@ class GameBoardTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_player_is_able_to_shoot
+    game = GameBoard.new
+    game.player_shoot(:A1)
+
+    expected = "M"
+    actual = game.computer_game_board[:A1].state
+
+    assert_equal expected, actual
+  end
+
+  def test_computer_shoot
+    game = GameBoard.new
+    game.computer_shoot(:A2)
+
+    expected = "M"
+    actual = game.player_game_board[:A2].state
+
+    assert_equal expected, actual
+  end
+
 end

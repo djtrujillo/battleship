@@ -26,7 +26,7 @@ class Battleship
     end
 
   def game_sequence
-    game = GameBoard.new
+    @game = GameBoard.new
     game.place_patrol_boat
     game.place_destroyer
 
@@ -51,8 +51,26 @@ class Battleship
     keys = answer.split(" ")
 
     game.place_player_destroyer(keys[0], keys[1])
+    player_shot_sequence
+  end
 
-    game.print_game_boards
+  def player_shot_sequence
+    @game.print_game_boards
+    puts "Enter a coordinate to fire on:"
+    key = gets.chomp
+    @game.player_shoot(key)
+    puts @game.test_player_hit_or_miss(key)
+    @game.print_game_boards
+    puts 
+    computer_shot_sequence
+  end
+
+  def computer_shot_sequence
+
+
+
+
+
 
   end
 
