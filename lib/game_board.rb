@@ -311,47 +311,53 @@ class GameBoard
   def test_player_hit_or_miss(key)
     key = key.to_sym
     if @computer_game_board[key].state == "M"
-      "Miss"
+      return "Miss"
     else @computer_game_board[key].state == "H"
       if @computer_destroyer.include? @computer_game_board[key]
-        "Direct Hit on Destroyer!"
-        @computer_destroyer.delete( @computer_game_board[key])#remove from array
+        @computer_destroyer.delete( @computer_game_board[key])
+        return "Direct Hit on Destroyer!"
+#remove from array
       else
-        "Direct Hit on Patrol Boat!"
         @computer_patrol_boat.delete(@computer_game_board[key])# remove from array
+        return "Direct Hit on Patrol Boat!"
       end
-      
-      if @computer_destroyer.count == 0 && @computer_patrol_boat.count == 0
-        "You Win!! You sank the computers Ships"
-      elsif @computer_destroyer.count == 0
-        "You Sank the Destroyer!"
-      elsif @computer_patrol_boat.count == 0
-        "You Sank the Patrol Boat!"
-      else
-      end
+
     end
   end
 
   def test_computer_hit_or_miss(key)
     if @player_game_board[key].state == "M"
-      "Miss"
+      return "Miss"
     else @player_game_board[key].state == "H"
       if @player_destroyer.include? @player_game_board[key]
-        "Computer Hit Your Destroyer!"
         @player_destroyer.delete(@player_game_board[key])
+        return "Computer Hit Your Destroyer!"
       else
-        "Computer Hit Your Patrol Boat!"
         @player_patrol_boat.delete(@player_game_board[key])
+        return "Computer Hit Your Patrol Boat!"
       end
+    end
+  end
 
-      if @player_patrol_boat.count == 0 && @player_destroyer.count == 0
-        "Game Over, Computer Sank your Ships"
-      elsif @player_destroyer.count == 0
-        "Computer Sank Your Destroyer!"
-      elsif @player_patrol_boat.count == 0
-        "Computer Sank Your Patrol Boat!"
-      else
-      end
+  def test_player_boats_health
+    if @player_patrol_boat.count == 0 && @player_destroyer.count == 0
+      "Game Over, Computer Sank your Ships"
+    elsif @player_destroyer.count == 0
+      "Computer Sank Your Destroyer!"
+    elsif @player_patrol_boat.count == 0
+      "Computer Sank Your Patrol Boat!"
+    else
+    end
+  end
+
+  def test_computer_boats_health
+    if @computer_destroyer.count == 0 && @computer_patrol_boat.count == 0
+      "You Win!! You sank the computers Ships"
+    elsif @computer_destroyer.count == 0
+      "You Sank the Destroyer!"
+    elsif @computer_patrol_boat.count == 0
+      "You Sank the Patrol Boat!"
+    else
     end
   end
 
