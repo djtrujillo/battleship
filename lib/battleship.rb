@@ -66,11 +66,6 @@ class Battleship
 
   def player_shot_sequence
     @start = Time.now
-# # code to time
-# finish = Time.now
-#
-# diff = finish - start
-
     @game.print_game_boards
     puts "Enter a coordinate to fire on:"
     key = gets.chomp
@@ -88,7 +83,6 @@ class Battleship
     if @game.computer_patrol_boat.count == 0 && @game.computer_destroyer.count == 0
       return end_sequence
     end
-    # puts @game.test_computer_boats_health
     puts "Press Enter for Computer's turn"
     gets.chomp
     computer_shot_sequence
@@ -100,7 +94,6 @@ class Battleship
     puts "Computer fired at #{key}"
     puts @game.test_computer_hit_or_miss(key)
     @game.test_computer_hit_or_miss(key)
-    # puts @game.test_player_boats_health
     if @game.player_patrol_boat.count == 0 && @game.player_destroyer.count == 0
       return end_sequence
     end
@@ -119,7 +112,6 @@ class Battleship
     finish = Time.now
     diff = finish - @start
     puts "You played for #{diff} minutes"
-
   end
 
   def instructions

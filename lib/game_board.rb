@@ -42,7 +42,7 @@ class GameBoard
                             [@player_game_board[:D1].state, @player_game_board[:D2].state, @player_game_board[:D3].state, @player_game_board[:D4].state]]
 
     @computer_game_array.each do |array|
-      hide_computer_occupied(array)
+    hide_computer_occupied(array)
     end
   end
 
@@ -113,14 +113,14 @@ class GameBoard
       if @computer_destroyer.include? @computer_game_board[key]
         @computer_destroyer.delete( @computer_game_board[key])
         if @computer_destroyer.count == 0
-          "You Sank the Destroyer!"
-        end# puts test_computer_boats_health
+          puts "You Sank the Destroyer!"
+        end
         return "Direct Hit on Destroyer!"
       else
         @computer_patrol_boat.delete(@computer_game_board[key])
         if @computer_patrol_boat.count == 0
           puts "You Sank the Patrol Boat!"
-        end# puts test_computer_boats_health
+        end
         return "Direct Hit on Patrol Boat!"
       end
     end
