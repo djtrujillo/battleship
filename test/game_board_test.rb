@@ -164,7 +164,7 @@ class GameBoardTest < Minitest::Test
     game = GameBoard.new
     game.place_player_patrol_boat("A2", "A3")
 
-    expected = "Error"
+    expected = "Not Valid Coordinates, Enter between A1 at the top left and D4 at the bottom right."
     actual = game.place_player_patrol_boat("A2", "B2")
 
     assert_equal expected, actual
@@ -198,7 +198,7 @@ class GameBoardTest < Minitest::Test
     game = GameBoard.new
     game.place_player_destroyer("A2", "A4")
 
-    expected = "Error"
+    expected =  "Not Valid Coordinates, Please try again"
     actual = game.place_player_destroyer("A2", "C2")
 
     assert_equal expected, actual
@@ -223,5 +223,106 @@ class GameBoardTest < Minitest::Test
 
     assert_equal expected, actual
   end
+
+  def test_player_patrol_boat
+    game = GameBoard.new
+    game.place_player_patrol_boat("A2", "A3")
+
+    expected = [game.player_game_board[:A2], game.player_game_board[:A3]]
+    actual = game.player_patrol_boat
+
+    assert_equal expected, actual
+  end
+
+  def test_player_destroyer
+    game = GameBoard.new
+    game.place_player_destroyer("A2", "A4")
+
+    expected = [game.player_game_board[:A2], game.player_game_board[:A3], game.player_game_board[:A4]]
+    actual = game.player_destroyer
+
+    assert_equal expected, actual
+  end
+
+  def test_patrol_boat_coordinates_are_valid
+    game = GameBoard.new
+
+    actual = game.test_patrol_boat_coordinates_are_valid("a;sd")
+
+    assert_nil actual
+  end
+
+  def test_patrol_boat_coordinates_valid
+    game = GameBoard.new
+
+    expected = 0
+    actual = game.test_patrol_boat_coordinates_are_valid("A2 A3")
+
+    assert_equal expected, actual
+  end
+
+  def test_patrol_boat_not_valid
+    game = GameBoard.new
+
+    expected = false
+    actual = game.test_patrol_boat_valid(:A2, :A4)
+
+    assert_equal expected, actual
+  end
+
+  def test_patrol_boat_valid
+    game = GameBoard.new
+
+    expected = true
+    actual = game.test_patrol_boat_valid(:A2, :A3)
+
+    assert_equal expected, actual
+  end
+
+  def test_place_player_patrol_boat
+    game = GameBoard.new
+
+    expected = "Not Valid Coordinates, Enter Coodinates next to each other (A2 A3)"
+    actual = game.place_player_patrol_boat("A1", "A3")
+
+    assert_equal expected, actual
+  end
+
+  def test_place_player_destroyer
+    game = GameBoard.new
+
+    expected =  "Not Valid Coordinates, Enter Coodinates at each end (A2 C2)"
+    actual = game.place_player_destroyer("A1", "A2")
+
+    assert_equal expected, actual
+  end
+
+  def test_player_destroyer_valid
+    game = GameBoard.new
+    key1 = :A2
+    key3 = :A4
+    expected = true
+    actual = game.test_destroyer_valid(key1, key3)
+
+    assert_equal expected, actual
+  end
+
+  def test_player_destroyer_invalid
+    game = GameBoard.new
+    key1 = :A2
+    key3 = :A3
+
+    expected = false
+    actual = game.test_destroyer_valid(key1, key3)
+
+    assert_equal expected,actual
+  end
+
+
+
+
+
+
+
 
 end
