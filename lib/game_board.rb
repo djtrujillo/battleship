@@ -316,7 +316,6 @@ class GameBoard
       if @computer_destroyer.include? @computer_game_board[key]
         @computer_destroyer.delete( @computer_game_board[key])
         return "Direct Hit on Destroyer!"
-#remove from array
       else
         @computer_patrol_boat.delete(@computer_game_board[key])# remove from array
         return "Direct Hit on Patrol Boat!"
