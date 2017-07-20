@@ -15,14 +15,14 @@ class Battleship
     puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
     answer = gets.chomp
     if answer == "p"
-      ship_layout
+      return ship_layout
     elsif answer == "i"
       puts instructions
     elsif answer == "q"
       puts "See you later!"
     else
       puts "WTF? Read the directions!"
-      start_game_sequence
+      return start_game_sequence
     end
     end_sequence
   end
@@ -65,6 +65,12 @@ class Battleship
   end
 
   def player_shot_sequence
+    @start = Time.now
+# # code to time
+# finish = Time.now
+#
+# diff = finish - start
+
     @game.print_game_boards
     puts "Enter a coordinate to fire on:"
     key = gets.chomp
@@ -79,15 +85,13 @@ class Battleship
     @game.print_game_boards
     puts @game.test_player_hit_or_miss(key)
     @game.test_player_hit_or_miss(key)
-    puts @game.test_computer_boats_health
-    @game.test_computer_boats_health
+    if @game.computer_patrol_boat.count == 0 && @game.computer_destroyer.count == 0
+      return end_sequence
+    end
+    # puts @game.test_computer_boats_health
     puts "Press Enter for Computer's turn"
     gets.chomp
-    if @game.computer_patrol_boat.count == 0 && @game.computer_destroyer.count == 0
-      end_sequence
-    else
-      computer_shot_sequence
-    end
+    computer_shot_sequence
   end
 
   def computer_shot_sequence
@@ -96,24 +100,26 @@ class Battleship
     puts "Computer fired at #{key}"
     puts @game.test_computer_hit_or_miss(key)
     @game.test_computer_hit_or_miss(key)
-    puts @game.test_player_boats_health
-    @game.test_player_boats_health
+    # puts @game.test_player_boats_health
+    if @game.player_patrol_boat.count == 0 && @game.player_destroyer.count == 0
+      return end_sequence
+    end
     puts "Press Enter for Your turn"
     gets.chomp
-    if @game.player_patrol_boat.count == 0 && @game.player_destroyer.count == 0
-      end_sequence
-    else
-      player_shot_sequence
-    end
-  end
-
-  def ship_hit_sequence
-
-
+    player_shot_sequence
   end
 
   def end_sequence
-    "Game Over!"
+    if @game.player_patrol_boat.count == 0 && @game.player_destroyer.count == 0
+      puts "You Suck! Computer Wins!"
+    end
+    if @game.computer_patrol_boat.count == 0 && @game.computer_destroyer.count == 0
+      puts "GAME OVER, YOU WIN!!!!"
+    end
+    finish = Time.now
+    diff = finish - @start
+    puts "You played for #{diff} minutes"
+
   end
 
   def instructions

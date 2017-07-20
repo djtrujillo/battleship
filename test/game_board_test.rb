@@ -138,8 +138,6 @@ class GameBoardTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  #######test place destroyer and patrol boat###########
-
   def test_player_place_patrol_boat
     game = GameBoard.new
     game.place_player_patrol_boat("A2", "A3")
@@ -307,12 +305,4 @@ class GameBoardTest < Minitest::Test
 
     assert_equal expected,actual
   end
-
-
-
-
-
-
-
-
 end

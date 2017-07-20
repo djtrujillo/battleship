@@ -46,7 +46,6 @@ class GameBoard
     end
   end
 
-
   def print_game_boards
     create_printable_game_boards
     line0 =  ""
@@ -77,47 +76,6 @@ class GameBoard
       end
     end
     array
-  end
-
-  def test_inbounds(key)
-    if @computer_game_board[key] == nil
-      false
-    else
-      true
-    end
-  end
-
-  def test_occupied(key)
-    if @computer_game_board[key].state == "O"
-      true
-    else
-      false
-    end
-  end
-
-  def test_params(key)
-    test_inbounds(key) == true && test_occupied(key) == false
-  end
-
-  def test_player_inbounds(key)
-    if @player_game_board[key] == nil
-      false
-    else
-      true
-    end
-  end
-
-
-  def test_player_occupied(key)
-    if @player_game_board[key].state == "O"
-      true
-    else
-      false
-    end
-  end
-
-  def test_player_params(key)
-    test_player_inbounds(key) == true && test_player_occupied(key) == false
   end
 
   def player_shoot(key)
@@ -154,12 +112,17 @@ class GameBoard
     else @computer_game_board[key].state == "H"
       if @computer_destroyer.include? @computer_game_board[key]
         @computer_destroyer.delete( @computer_game_board[key])
+        if @computer_destroyer.count == 0
+          "You Sank the Destroyer!"
+        end# puts test_computer_boats_health
         return "Direct Hit on Destroyer!"
       else
-        @computer_patrol_boat.delete(@computer_game_board[key])# remove from array
+        @computer_patrol_boat.delete(@computer_game_board[key])
+        if @computer_patrol_boat.count == 0
+          puts "You Sank the Patrol Boat!"
+        end# puts test_computer_boats_health
         return "Direct Hit on Patrol Boat!"
       end
-
     end
   end
 
@@ -169,9 +132,15 @@ class GameBoard
     else @player_game_board[key].state == "H"
       if @player_destroyer.include? @player_game_board[key]
         @player_destroyer.delete(@player_game_board[key])
+        if @player_destroyer.count == 0
+          puts "Computer Sank Your Destroyer!"
+        end
         return "Computer Hit Your Destroyer!"
       else
         @player_patrol_boat.delete(@player_game_board[key])
+        if @player_patrol_boat.count == 0
+          puts "Computer Sank Your Patrol Boat!"
+        end
         return "Computer Hit Your Patrol Boat!"
       end
     end
@@ -185,6 +154,7 @@ class GameBoard
     elsif @player_patrol_boat.count == 0
       "Computer Sank Your Patrol Boat!"
     else
+      ''
     end
   end
 
@@ -196,17 +166,8 @@ class GameBoard
     elsif @computer_patrol_boat.count == 0
       "You Sank the Patrol Boat!"
     else
+      ''
     end
   end
-
-  def test_patrol_boat_coordinates_are_valid(input)
-    input =~ /[A-D][1-4]\s[A-D][1-4]/
-  end
-
-  def test_shot_coordinate_is_valid(input)
-    input =~ /[A-D[1-4]]/
-  end
-
-
 
 end
