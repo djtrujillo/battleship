@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 class Tile
   attr_reader :state
 

@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 module ShipPlacement
 
   def comp_random_key
@@ -57,10 +59,8 @@ module ShipPlacement
 
   def place_comp_patrol_boat
     keys = assign_comp_patrol_boat_keys
-
     @computer_game_board[keys[0]].occupied
     @computer_game_board[keys[1]].occupied
-
     @computer_patrol_boat = [@computer_game_board[keys[0]], @computer_game_board[keys[1]]]
   end
 

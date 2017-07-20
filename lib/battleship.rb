@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require './lib/game_board'
 require './lib/tile'
 require './lib/battleship'

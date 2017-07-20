@@ -34,13 +34,6 @@ class GameBoardTest < Minitest::Test
     assert_instance_of Tile, actual
   end
 
-
-  def test_print_game_board_to_screen
-    game = GameBoard.new
-
-    # game.print_game_board
-  end
-
   def test_computer_selects_random_key
     game = GameBoard.new
 
@@ -50,18 +43,12 @@ class GameBoardTest < Minitest::Test
   end
 
   def test_randomly_select_horizontal_or_vertical
-
     game = GameBoard.new
-    tile = game.comp_random_key
 
     vert_or_horiz = game.rand_vert_or_horiz
 
     assert vert_or_horiz == "vert" || "horiz"
   end
-
-
-  #######need tests for "random" methods########
-
 
   def test_assign_next_tile_vert_down
 
@@ -139,13 +126,14 @@ class GameBoardTest < Minitest::Test
   end
 
   def test_third_key_for_destroyer
-
     game = GameBoard.new
     key1 = :C3
     key2 = :D3
 
-    expected = :B3
+    expected = :E3
     actual = game.third_key_for_destroyer(key1, key2)
+
+    assert_equal expected, actual
   end
 
   #######test place destroyer and patrol boat###########
