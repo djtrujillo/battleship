@@ -113,13 +113,13 @@ class GameBoard
       if @computer_destroyer.include? @computer_game_board[key]
         @computer_destroyer.delete( @computer_game_board[key])
         if @computer_destroyer.count == 0
-          puts "You Sank the Destroyer!"
+          return "You Sank the Destroyer!"
         end
         return "Direct Hit on Destroyer!"
       else
         @computer_patrol_boat.delete(@computer_game_board[key])
         if @computer_patrol_boat.count == 0
-          puts "You Sank the Patrol Boat!"
+          return "You Sank the Patrol Boat!"
         end
         return "Direct Hit on Patrol Boat!"
       end
@@ -133,13 +133,13 @@ class GameBoard
       if @player_destroyer.include? @player_game_board[key]
         @player_destroyer.delete(@player_game_board[key])
         if @player_destroyer.count == 0
-          puts "Computer Sank Your Destroyer!"
+          return "Computer Sank Your Destroyer!"
         end
         return "Computer Hit Your Destroyer!"
       else
         @player_patrol_boat.delete(@player_game_board[key])
         if @player_patrol_boat.count == 0
-          puts "Computer Sank Your Patrol Boat!"
+          return "Computer Sank Your Patrol Boat!"
         end
         return "Computer Hit Your Patrol Boat!"
       end
@@ -169,5 +169,4 @@ class GameBoard
       ''
     end
   end
-
 end

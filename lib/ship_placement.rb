@@ -25,8 +25,6 @@ module ShipPlacement
     new_key = next_tile(key, directions[:orientation], directions[:direction])
   end
 
-
-
   def next_tile(key, orientation, direction)
     key_string = key.to_s
     if orientation == "vert"
@@ -85,8 +83,6 @@ module ShipPlacement
     end
   end
 
-
-
   def place_player_patrol_boat(coord1, coord2)
     key1 = coord1.to_sym
     key2 = coord2.to_sym
@@ -123,22 +119,16 @@ module ShipPlacement
     end
   end
 
-
   def place_player_destroyer(coord1, coord2)
     key1 = coord1.to_sym
     key3 = coord2.to_sym
     key2 = find_middle_key(key1, key3)
-
-
     if test_destroyer_valid(key1, key3) == false
       return "Not Valid Coordinates, Enter Coodinates at each end (A2 C2)"
     end
-
-
     if test_player_params(key1) == false || test_player_params(key2) == false || test_player_params(key3) == false
       return "Not Valid Coordinates, Please try again"
     end
-
     @player_game_board[key1].occupied
     @player_game_board[key2].occupied
     @player_game_board[key3].occupied
@@ -150,7 +140,6 @@ module ShipPlacement
     key1 = key1.to_s.split('')
     key2 = key2.to_s.split('')
     key3 = []
-
     if key1[0] == key2[0]
       if (key1[1].to_i + 1) == key2[1].to_i
         key3 << key2[0]
@@ -240,5 +229,4 @@ module ShipPlacement
     random = Random.new
     random.rand(2)
   end
-
 end

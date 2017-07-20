@@ -1,5 +1,5 @@
-# require 'simplecov'
-# SimpleCov.start
+require 'simplecov'
+SimpleCov.start
 require './lib/game_board'
 require './lib/tile'
 require './lib/battleship'
@@ -111,7 +111,7 @@ class Battleship
     end
     finish = Time.now
     diff = finish - @start
-    puts "You played for #{diff} minutes"
+    puts "You played for #{diff}"
   end
 
   def instructions
