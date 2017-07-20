@@ -241,4 +241,6 @@ module ShipPlacement
     random.rand(2)
   end
 
+
+
 end

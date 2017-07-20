@@ -52,6 +52,7 @@ class Battleship
     puts "Enter the squares for the three-unit ship:"
     answer = gets.chomp
     keys = answer.split(" ")
+
     while @game.place_player_destroyer(keys[0], keys[1]) != "done"
       puts @game.place_player_destroyer(keys[0], keys[1])
       answer = gets.chomp
@@ -65,13 +66,20 @@ class Battleship
     @game.print_game_boards
     puts "Enter a coordinate to fire on:"
     key = gets.chomp
-    @game.player_shoot(key)
+    while @game.test_shot_coordinate_is_valid(key) == nil
+      puts "Invalid Coordinates, please enter like (A2):"
+      key = gets.chomp
+    end
+    while @game.player_shoot(key) != "done"
+      puts @game.player_shoot(key)
+      key = gets.chomp
+    end
     @game.print_game_boards
     puts @game.test_player_hit_or_miss(key)
     @game.test_player_hit_or_miss(key)
     puts @game.test_computer_boats_health
     @game.test_computer_boats_health
-    puts "Press Enter for Next turn"
+    puts "Press Enter for Computer's turn"
     gets.chomp
     if @game.computer_patrol_boat.count == 0 && @game.computer_destroyer.count == 0
       end_sequence
@@ -88,12 +96,18 @@ class Battleship
     @game.test_computer_hit_or_miss(key)
     puts @game.test_player_boats_health
     @game.test_player_boats_health
+    puts "Press Enter for Your turn"
     gets.chomp
     if @game.player_patrol_boat.count == 0 && @game.player_destroyer.count == 0
       end_sequence
     else
       player_shot_sequence
     end
+  end
+
+  def ship_hit_sequence
+
+
   end
 
   def end_sequence

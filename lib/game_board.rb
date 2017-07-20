@@ -117,15 +117,18 @@ class GameBoard
 
   def player_shoot(key)
     key = key.to_sym
-    # binding.pry
-      if @computer_game_board[key].state == "O"
-        @computer_game_board[key].hit
-      elsif @computer_game_board[key].state == "M" || @computer_game_board[key].state == "H"
-        "Previously shot here"
-      else
-        @computer_game_board[key].miss
-      end
-      @computer_game_board[key].state
+    if test_inbounds(key) == false
+      return "Invalid Coordinate. Shoot within grid:"
+    end
+    if @computer_game_board[key].state == "O"
+      @computer_game_board[key].hit
+    elsif @computer_game_board[key].state == "M" || @computer_game_board[key].state == "H"
+      return "Invalid Coordinate. Previously shot here:"
+    else
+      @computer_game_board[key].miss
+    end
+    @computer_game_board[key].state
+    "done"
   end
 
   def computer_shoot(key = player_random_key)
@@ -193,6 +196,10 @@ class GameBoard
 
   def test_patrol_boat_coordinates_are_valid(input)
     input =~ /[A-D][1-4]\s[A-D][1-4]/
+  end
+
+  def test_shot_coordinate_is_valid(input)
+    input =~ /[A-D[1-4]]/
   end
 
 
