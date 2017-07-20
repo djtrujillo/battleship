@@ -1,8 +1,10 @@
 require 'simplecov'
 SimpleCov.start
 require './lib/ship_placement'
+require './lib/validation'
 require './lib/tile'
 require 'pry'
+
 class GameBoard
   attr_reader :player_game_board,
               :computer_game_board,
@@ -26,6 +28,7 @@ class GameBoard
   end
 
   include ShipPlacement
+  include Validation
 
   def create_printable_game_boards
     @computer_game_array = [[@computer_game_board[:A1].state, @computer_game_board[:A2].state, @computer_game_board[:A3].state, @computer_game_board[:A4].state],
