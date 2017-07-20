@@ -1,11 +1,11 @@
-require 'simplecov'
-SimpleCov.start
+# require 'simplecov'
+# SimpleCov.start
 require './lib/ship_placement'
 require './lib/tile'
 require 'pry'
 
 module Validation
-  
+
   def test_inbounds(key)
     if @computer_game_board[key] == nil
       false
