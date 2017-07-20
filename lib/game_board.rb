@@ -94,6 +94,15 @@ class GameBoard
     test_inbounds(key) == true && test_occupied(key) == false
   end
 
+  def test_player_inbounds(key)
+    if @player_game_board[key] == nil
+      false
+    else
+      true
+    end
+  end
+
+
   def test_player_occupied(key)
     if @player_game_board[key].state == "O"
       true
@@ -103,7 +112,7 @@ class GameBoard
   end
 
   def test_player_params(key)
-    test_inbounds(key) == true && test_player_occupied(key) == false
+    test_player_inbounds(key) == true && test_player_occupied(key) == false
   end
 
   def player_shoot(key)
@@ -182,10 +191,10 @@ class GameBoard
     end
   end
 
-  def test_coordinates_are_valid(input)
-    pattern = /[A-D][1-4]\s[A-D][1-4]/
-    pattern.match?(input)
+  def test_patrol_boat_coordinates_are_valid(input)
+    input =~ /[A-D][1-4]\s[A-D][1-4]/
   end
+
 
 
 end

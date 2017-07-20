@@ -15,7 +15,7 @@ class Battleship
     if answer == "p"
       ship_layout
     elsif answer == "i"
-      instructions
+      puts instructions
     elsif answer == "q"
       puts "See you later!"
     else
@@ -36,11 +36,27 @@ class Battleship
     puts ""
     puts "Enter the squares for the two-unit ship:"
     answer = gets.chomp
+    while @game.test_patrol_boat_coordinates_are_valid(answer) == nil
+      puts "Invalid Coordinates, please enter like (A2 A3):"
+      answer = gets.chomp
+    end
+
     keys = answer.split(" ")
-    @game.place_player_patrol_boat(keys[0], keys[1])
+
+    while @game.place_player_patrol_boat(keys[0], keys[1]) != "done"
+      puts @game.place_player_patrol_boat(keys[0], keys[1])
+      answer = gets.chomp
+      keys = answer.split(" ")
+    end
+
     puts "Enter the squares for the three-unit ship:"
     answer = gets.chomp
     keys = answer.split(" ")
+    while @game.place_player_destroyer(keys[0], keys[1]) != "done"
+      puts @game.place_player_destroyer(keys[0], keys[1])
+      answer = gets.chomp
+      keys = answer.split(" ")
+    end
     @game.place_player_destroyer(keys[0], keys[1])
     player_shot_sequence
   end
@@ -85,12 +101,14 @@ class Battleship
   end
 
   def instructions
-    "Start by placing your two ships (patrol boat = 2,
-    destroyer = 3) using coordinates.(ex. patrol boat = A1 A2,
-    destroyer = A3 C3).
+    "Start by placing your two ships
+    (patrol boat = 2, destroyer = 3)
+    using coordinates.(ex. patrol
+    boat = A1 A2, destroyer = A3 C3).
     Take turns firing upon the enemy
-    by calling out plot points (example: A5.)
-    First to sink the others ships wins."
+    by entering coordinates (example:
+    A5.) First to sink the others
+    ships wins."
   end
 end
 

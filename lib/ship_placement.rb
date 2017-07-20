@@ -23,6 +23,8 @@ module ShipPlacement
     new_key = next_tile(key, directions[:orientation], directions[:direction])
   end
 
+
+
   def next_tile(key, orientation, direction)
     key_string = key.to_s
     if orientation == "vert"
@@ -46,7 +48,7 @@ module ShipPlacement
   def assign_comp_patrol_boat_keys
     key1 = comp_random_key
     key2 = new_tile_key(key1)
-    while test_params(key1) == false && test_params(key2) == false
+    while test_params(key1) == false || test_params(key2) == false
       key1 = comp_random_key
       key2 = new_tile_key(key1)
     end
@@ -62,34 +64,86 @@ module ShipPlacement
     @computer_patrol_boat = [@computer_game_board[keys[0]], @computer_game_board[keys[1]]]
   end
 
+  def test_patrol_boat_valid(key1, key2)
+    key1 = key1.to_s.split('')
+    key2 = key2.to_s.split('')
+
+    if key1[0] == key2[0]
+      if (key1[1].to_i - key2[1].to_i) == 1 || (key1[1].to_i - key2[1].to_i) == -1
+        true
+      else
+        false
+      end
+    elsif key1[1] == key2[1]
+      if key1[0].next == key2[0] || (key1[0].ord-1).chr == key2[0]
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+
+
+
   def place_player_patrol_boat(coord1, coord2)
     key1 = coord1.to_sym
     key2 = coord2.to_sym
-
-    if test_player_params(key1) == false || test_player_params(key2) == false
-      return "Error"
+    if test_patrol_boat_valid(key1, key2) == false
+      return "Not Valid Coordinates, Enter Coodinates next to each other (A2 A3)"
     end
-
+    if test_player_params(key1) == false || test_player_params(key2) == false
+      return "Not Valid Coordinates, Enter between A1 at the top left and D4 at the bottom right."
+    end
     @player_game_board[key1].occupied
     @player_game_board[key2].occupied
-
     @player_patrol_boat = [@player_game_board[key1], @player_game_board[key2]]
+    "done"
   end
+
+  def test_destroyer_valid(key1, key3)
+    key1 = key1.to_s.split('')
+    key2 = key3.to_s.split('')
+
+    if key1[0] == key2[0]
+      if (key1[1].to_i - key2[1].to_i) == 2 || (key1[1].to_i - key2[1].to_i) == -2
+        true
+      else
+        false
+      end
+    elsif key1[1] == key2[1]
+      if key1[0].next.next == key2[0] || (key1[0].ord-2).chr == key2[0]
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+
 
   def place_player_destroyer(coord1, coord2)
     key1 = coord1.to_sym
     key3 = coord2.to_sym
     key2 = find_middle_key(key1, key3)
 
+
+    if test_destroyer_valid(key1, key3) == false
+      return "Not Valid Coordinates, Enter Coodinates at each end (A2 C2)"
+    end
+
+
     if test_player_params(key1) == false || test_player_params(key2) == false || test_player_params(key3) == false
-      return "Error"
+      return "Not Valid Coordinates, Please try again"
     end
 
     @player_game_board[key1].occupied
     @player_game_board[key2].occupied
     @player_game_board[key3].occupied
-
     @player_destroyer = [@player_game_board[key1], @player_game_board[key2], @player_game_board[key3]]
+    "done"
   end
 
   def third_key_for_destroyer(key1, key2)
