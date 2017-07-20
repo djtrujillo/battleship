@@ -22,6 +22,7 @@ class Battleship
       puts "WTF? Read the directions!"
       start_game_sequence
     end
+    end_sequence
   end
 
   def ship_layout
@@ -81,6 +82,15 @@ class Battleship
 
   def end_sequence
     "Game Over!"
+  end
+
+  def instructions
+    "Start by placing your two ships (patrol boat = 2,
+    destroyer = 3) using coordinates.(ex. patrol boat = A1 A2,
+    destroyer = A3 C3).
+    Take turns firing upon the enemy
+    by calling out plot points (example: A5.)
+    First to sink the others ships wins."
   end
 end
 
